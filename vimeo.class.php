@@ -1,10 +1,10 @@
 <?php
 /**
  * File: api-vimeo
- * 	Handle the Vimeo API.
+ * 	Handle the Vimeo Simple API.
  *
  * Version:
- * 	2009.11.13
+ * 	2009.12.14
  *
  * Copyright:
  * 	2009 Jay Williams
@@ -12,16 +12,6 @@
  * License:
  * 	Simplified BSD License - http://opensource.org/licenses/bsd-license.php
  */
-
-
-/*%******************************************************************************************%*/
-// CORE DEPENDENCIES
-
-// Include the config file
-if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.inc.php'))
-{
-	include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.inc.php';
-}
 
 
 /*%******************************************************************************************%*/
@@ -178,7 +168,6 @@ class Vimeo
 	 */
 	public function __get($var)
 	{
-		
 		// Determine the name of this class
 		$class_name = get_class($this);
 		
