@@ -61,7 +61,6 @@ class VimeoCache extends Vimeo
 	 */
 	public function __construct($subclass = null)
 	{
-		
 		// Set default values
 		$this->cache_mode  = false;
 		$this->cache_ttl   = 3600;
@@ -125,6 +124,7 @@ class VimeoCache extends Vimeo
 		// Set default values
 		$this->header_mode = $enabled;
 	}
+
 
 	/*%******************************************************************************************%*/
 	// MAGIC METHODS

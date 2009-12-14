@@ -194,10 +194,8 @@ class Vimeo
 		$method = implode('/',$this->subclass) . '/' . $name . '.' . $this->output;
 
 		// Construct the rest of the query parameters with what was passed to the method
-		$query = '';
-		if ((count($args) > 0))
-			$query = '?' . http_build_query($args[0], '', '&');
-
+		$query = ((count($args) > 0))? '?' . http_build_query($args[0], '', '&') : '';
+		
 		// Construct the URL to request
 		$api_call = 'http://vimeo.com/api/' . $this->api_version . '/' . $method  . $query;
 
