@@ -191,16 +191,48 @@ class Vimeo
 		// Change the names of the methods to match what the API expects
 		$name = strtolower($name);
 
-		$method = implode('/',$this->subclass) . '/' . $name . '.' . $this->output;
+		$path = (count($this->subclass) > 0)? implode('/',$this->subclass) . '/' : '';
+		
+		$method = $name . '.' . $this->output;
 
 		// Construct the rest of the query parameters with what was passed to the method
 		$query = ((count($args) > 0))? '?' . http_build_query($args[0], '', '&') : '';
 		
+		$version = (!empty($this->api_version))? $this->api_version . '/' : '';
+		
 		// Construct the URL to request
-		$api_call = 'http://vimeo.com/api/' . $this->api_version . '/' . $method  . $query;
+		$api_call = 'http://vimeo.com/api/' . $version . $path  . $method  . $query;
 
 		// Return the value
 		return $this->request($api_call);
+	}
+
+	/**
+	 * Method: oembed()
+	 * 	Requests the oEmbed code for the specified video URL. 
+	 * 	Due to the Vimeo API, you must remove the API version number before you submit a oEmbed request.
+	 * 	This method temporarily removes the API version number, and resets it after the request has finished.
+	 * 	Yes, this is an unfortunate hack.
+	 *
+	 * Parameters:
+	 * 	args - _array_ (Required) Must contain the array key 'url' for oembed lookup
+	 *
+	 * Returns:
+	 * 	ResponseCore object
+	 */
+	public function oembed($args = null)
+	{
+		// Save Current API Version
+		$version = $this->api_version;
+
+		// Temporarily remove API Version for the oembed() request
+		$this->set_api_version(null);
+		$result = $this->__call('oembed', array($args));
+	
+		// Reset the API Version
+		$this->set_api_version($version);
+
+		return $result;
 	}
 
 
